@@ -13,7 +13,19 @@ describe("isPalindrome", () => {
       expect(isPalindrome(test)).toEqual(false)
     })
   })
-  it("Check palindrome on palindrome phrase", () => {})
-  it("Check palindrome on non-palindrome phrase", () => {})
-  it("Check palindrome even if case is off", () => {})
+  it("Check palindrome on palindrome phrase", () => {
+    const tests = ["was it a rat i saw", "never odd or even"]
+    tests.forEach((test) => {
+      expect(isPalindrome(test)).toEqual(true)
+    })
+  })
+  it("Check palindrome on non-palindrome phrase", () => {
+    const tests = ["leo max", "ddd is awesome"]
+    tests.forEach((test) => {
+      expect(isPalindrome(test)).toEqual(false)
+    })
+  })
+  it("Check palindrome even if case is off", () => {
+    const tests = ["Was It A Rat I Saw", "Never Odd or Even"]
+  })
 })
