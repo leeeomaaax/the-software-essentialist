@@ -2,7 +2,7 @@ import { isPalindrome } from "./index"
 
 describe("isPalindrome", () => {
   it("Check palindrome on palindrome word", () => {
-    const tests = ["mom", "wow"]
+    const tests = ["mom", "wow", "m", "aa"]
     tests.forEach((test) => {
       expect(isPalindrome(test)).toEqual(true)
     })
@@ -26,6 +26,9 @@ describe("isPalindrome", () => {
     })
   })
   it("Check palindrome even if case is off", () => {
-    const tests = ["Was It A Rat I Saw", "Never Odd or Even"]
+    const tests = ["Was It A Rat I Saw", "Never Odd or Even", "Mom", "Wow"]
+    tests.forEach((test) => {
+      expect(isPalindrome(test)).toEqual(true)
+    })
   })
 })
