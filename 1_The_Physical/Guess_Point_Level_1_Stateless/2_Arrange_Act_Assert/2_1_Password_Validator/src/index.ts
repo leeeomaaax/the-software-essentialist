@@ -10,6 +10,10 @@ export const validatePassword = (password: string): ValidatePasswordResult => {
     .split("")
     .find((char) => !isNaN(parseInt(char)))
   if (!hasAtLeastOneDigit) errors.push("NoDigit")
+  const hasAtLeastOneUpperCase = password
+    .split("")
+    .find((char) => /^[A-Z]*$/.test(char))
+  if (!hasAtLeastOneUpperCase) errors.push("NoUpperCase")
   if (errors.length > 0)
     return {
       isValid: false,
