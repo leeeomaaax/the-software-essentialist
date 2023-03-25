@@ -9,7 +9,7 @@ describe("password validator", () => {
     const result = validatePassword("Tes5")
     expect(result.isValid).toBe(false)
     if (!result.isValid) {
-      expect(result.errors.length).toBe(1)
+      expect(result.errors).toHaveLength(1)
       expect(result.errors[0]).toBe("SmallerThen5Chars")
     }
   })
@@ -17,7 +17,7 @@ describe("password validator", () => {
     const result = validatePassword("Test5test5test16")
     expect(result.isValid).toBe(false)
     if (!result.isValid) {
-      expect(result.errors.length).toBe(1)
+      expect(result.errors).toHaveLength(1)
       expect(result.errors[0]).toBe("GreaterThen15Chars")
     }
   })
@@ -25,7 +25,7 @@ describe("password validator", () => {
     const result = validatePassword("Testt")
     expect(result.isValid).toBe(false)
     if (!result.isValid) {
-      expect(result.errors.length).toBe(1)
+      expect(result.errors).toHaveLength(1)
       expect(result.errors[0]).toBe("NoDigit")
     }
   })
@@ -33,8 +33,18 @@ describe("password validator", () => {
     const result = validatePassword("test5")
     expect(result.isValid).toBe(false)
     if (!result.isValid) {
-      expect(result.errors.length).toBe(1)
+      expect(result.errors).toHaveLength(1)
       expect(result.errors[0]).toBe("NoUpperCase")
+    }
+  })
+  it("validates a password as invalid due to not having an upper case letter, a digit and having length smaller than 5", () => {
+    const result = validatePassword("test")
+    expect(result.isValid).toBe(false)
+    if (!result.isValid) {
+      expect(result.errors).toHaveLength(3)
+      expect(result.errors).toContain("NoUpperCase")
+      expect(result.errors).toContain("NoDigit")
+      expect(result.errors).toContain("SmallerThen5Chars")
     }
   })
 })
