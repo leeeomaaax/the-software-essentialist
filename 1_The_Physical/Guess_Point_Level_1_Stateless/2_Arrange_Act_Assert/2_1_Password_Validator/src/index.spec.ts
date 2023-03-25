@@ -19,4 +19,11 @@ describe("password validator", () => {
       expect(result.errors[0]).toBe("GreaterThen15Chars")
     }
   })
+  it("validates a password as invalid due to not having a digit", () => {
+    const result = validatePassword("testt")
+    expect(result.isValid).toBe(false)
+    if (!result.isValid) {
+      expect(result.errors[0]).toBe("NoDigit")
+    }
+  })
 })
