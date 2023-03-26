@@ -66,4 +66,16 @@ describe("getStatsOnSequence", () => {
       expect(stats.length).toEqual(3)
     })
   })
+  describe("calculates the average correctly", () => {
+    it("when sequence has only 1 number", () => {
+      const sequence = [1]
+      const stats = getStatsOnSequence(sequence)
+      expect(stats.average).toEqual(1)
+    })
+    it("when sequence has many numbers", () => {
+      const sequence = [1, 2, 3]
+      const stats = getStatsOnSequence(sequence)
+      expect(stats.average).toEqual(2)
+    })
+  })
 })
