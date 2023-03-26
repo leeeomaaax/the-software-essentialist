@@ -1,14 +1,28 @@
 type Result = {
-  min: number
-  max: number
+  min: number | undefined
+  max: number | undefined
   length: number
-  average: number
+  average: number | undefined
+}
+
+const getMax = (sequence: number[]): number => {
+  return sequence.reduce((prev, curr) => {
+    if (prev > curr) return prev
+    return curr
+  }, -Infinity)
 }
 
 export const getStatsOnSequence = (sequence: number[]): Result => {
+  if (sequence.length === 0)
+    return {
+      min: undefined,
+      max: undefined,
+      length: 0,
+      average: undefined,
+    }
   return {
     min: 1,
-    max: 1,
+    max: getMax(sequence),
     length: 1,
     average: 1,
   }
