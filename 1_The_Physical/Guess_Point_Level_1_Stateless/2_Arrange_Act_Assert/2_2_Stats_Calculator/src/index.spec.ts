@@ -54,4 +54,16 @@ describe("getStatsOnSequence", () => {
       expect(stats.min).toEqual(2)
     })
   })
+  describe("calculates the number of elements correctly", () => {
+    it("when sequence has only 1 number", () => {
+      const sequence = [1]
+      const stats = getStatsOnSequence(sequence)
+      expect(stats.length).toEqual(1)
+    })
+    it("when sequence has many numbers", () => {
+      const sequence = [2, 2, 3]
+      const stats = getStatsOnSequence(sequence)
+      expect(stats.length).toEqual(3)
+    })
+  })
 })

@@ -30,7 +30,7 @@ export const getStatsOnSequence = (sequence: number[]): Result => {
   return {
     min: getMin(sequence),
     max: getMax(sequence),
-    length: 1,
+    length: sequence.length,
     average: 1,
   }
 }
