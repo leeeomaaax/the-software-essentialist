@@ -16,6 +16,13 @@ describe("military time validator", () => {
 
     expect(result).toBeFalsy()
   })
+  it("should validate a longer string as a incorrect military time", () => {
+    const input = "12:12 - 12:12 extra chars"
+
+    const result = isValidMilitaryTime(input)
+
+    expect(result).toBeFalsy()
+  })
 
   it("should validate hourStart in string as a correct", () => {
     const input = "12:00 - 00:00"

@@ -1,5 +1,5 @@
 export const isValidMilitaryTime = (timeString: string): boolean => {
-  if (timeString.length === 0) return false
+  if (timeString.length !== 13) return false
   const hourStart = parseInt(timeString.substring(0, 2))
   if (isNaN(hourStart) || hourStart < 0 || hourStart > 23) return false
   const minuteStart = parseInt(timeString.substring(3, 5))
