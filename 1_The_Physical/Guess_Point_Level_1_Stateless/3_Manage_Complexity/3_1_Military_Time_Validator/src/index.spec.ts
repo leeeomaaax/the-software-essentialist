@@ -31,7 +31,7 @@ describe("military time validator", () => {
 
     expect(result).toBeTruthy()
   })
-  it("should validate hourStart '24' in string as a correct", () => {
+  it("should validate hourStart '24' in string as a incorrect", () => {
     const input = "24:00 - 00:00"
 
     const result = isValidMilitaryTime(input)
@@ -45,7 +45,7 @@ describe("military time validator", () => {
 
     expect(result).toBeTruthy()
   })
-  it("should validate minuteStart '60' in string as a correct", () => {
+  it("should validate minuteStart '60' in string as a incorrect", () => {
     const input = "00:60 - 00:00"
 
     const result = isValidMilitaryTime(input)
@@ -59,7 +59,7 @@ describe("military time validator", () => {
 
     expect(result).toBeTruthy()
   })
-  it("should validate hourEnd '24' in string as a correct", () => {
+  it("should validate hourEnd '24' in string as a incorrect", () => {
     const input = "24:00 - 24:00"
 
     const result = isValidMilitaryTime(input)
@@ -73,8 +73,29 @@ describe("military time validator", () => {
 
     expect(result).toBeTruthy()
   })
-  it("should validate minuteEnd '60' in string as a correct", () => {
+  it("should validate minuteEnd '60' in string as a incorrect", () => {
     const input = "00:60 - 00:60"
+
+    const result = isValidMilitaryTime(input)
+
+    expect(result).toBeFalsy()
+  })
+  it("should validate wrong separators at start in string as a incorrect", () => {
+    const input = "00a50 - 00:50"
+
+    const result = isValidMilitaryTime(input)
+
+    expect(result).toBeFalsy()
+  })
+  it("should validate wrong separators at end in string as a incorrect", () => {
+    const input = "00:50 - 00a50"
+
+    const result = isValidMilitaryTime(input)
+
+    expect(result).toBeFalsy()
+  })
+  it("should validate wrong separators between times in string as a incorrect", () => {
+    const input = "00:50aaa00:50"
 
     const result = isValidMilitaryTime(input)
 
