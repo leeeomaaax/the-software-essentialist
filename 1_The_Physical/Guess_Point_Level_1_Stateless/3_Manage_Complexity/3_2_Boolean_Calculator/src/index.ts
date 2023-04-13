@@ -7,18 +7,34 @@ const evaluateExpressionValue = (expressionValue: string): boolean => {
   throw new Error("unhandled expressionValue")
 }
 
+const evaluateANDOperator = (expression: string): boolean => {
+  const expressionValues = expression.split(" AND ")
+
+  const result = expressionValues.reduce((prevValue, currentValue) => {
+    if (currentValue.indexOf(" OR ") >= 0)
+      return prevValue && evaluateOROperator(currentValue)
+    return prevValue && evaluateExpressionValue(currentValue)
+  }, true)
+  return result
+}
+
+const evaluateOROperator = (expression: string): boolean => {
+  const expressionValues = expression.split(" OR ")
+
+  const result = expressionValues.reduce(
+    (prevValue, currentValue) =>
+      prevValue || evaluateExpressionValue(currentValue),
+    false
+  )
+  return result
+}
+
 export const evaluateExpression = (expression: string): boolean => {
   if (expression === "TRUE") return true
   if (expression === "FALSE") return false
   if (expression === "NOT TRUE") return false
   if (expression === "NOT FALSE") return true
 
-  const expressionValues = expression.split(" AND ")
-
-  const result = expressionValues.reduce(
-    (prevValue, currentValue) =>
-      prevValue && evaluateExpressionValue(currentValue),
-    true
-  )
+  const result = evaluateANDOperator(expression)
   return result
 }
