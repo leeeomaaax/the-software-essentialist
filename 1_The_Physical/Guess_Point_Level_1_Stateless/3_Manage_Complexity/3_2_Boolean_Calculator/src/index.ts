@@ -1,3 +1,4 @@
 export const evaluateExpression = (expression: string): boolean => {
-  return true
+  if (expression === "TRUE") return true
+  return false
 }
