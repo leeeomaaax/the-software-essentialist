@@ -56,4 +56,12 @@ describe("boolean calculator", () => {
       expect(evaluateExpression("FALSE OR TRUE")).toBeTruthy()
     })
   })
+  describe("should compose operators compose result", () => {
+    it("should evaluate TRUE OR TRUE OR TRUE AND FALSE to true", () => {
+      expect(evaluateExpression("TRUE OR TRUE OR TRUE AND FALSE")).toBeTruthy()
+    })
+    it("should evaluate TRUE OR FALSE AND NOT FALSE to true", () => {
+      expect(evaluateExpression("TRUE OR FALSE AND NOT FALSE")).toBeTruthy()
+    })
+  })
 })

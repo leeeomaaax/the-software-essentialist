@@ -21,11 +21,11 @@ const evaluateANDOperator = (expression: string): boolean => {
 const evaluateOROperator = (expression: string): boolean => {
   const expressionValues = expression.split(" OR ")
 
-  const result = expressionValues.reduce(
-    (prevValue, currentValue) =>
-      prevValue || evaluateExpressionValue(currentValue),
-    false
-  )
+  const result = expressionValues.reduce((prevValue, currentValue) => {
+    if (currentValue.indexOf(" AND ") >= 0)
+      return prevValue || evaluateANDOperator(currentValue)
+    return prevValue || evaluateExpressionValue(currentValue)
+  }, false)
   return result
 }
 
@@ -35,6 +35,6 @@ export const evaluateExpression = (expression: string): boolean => {
   if (expression === "NOT TRUE") return false
   if (expression === "NOT FALSE") return true
 
-  const result = evaluateANDOperator(expression)
+  const result = evaluateOROperator(expression)
   return result
 }
