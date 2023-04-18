@@ -29,70 +29,78 @@ const evaluateOROperator = (expression: string): boolean => {
   return result
 }
 
-const evaluateParenthesis = (expression: string): boolean => {
-  // TODO improve typing
-  let parenthesisOpenIndex: number = 0
-  let parenthesisCloseIndex: number = 0
+const getOutermostParenthesisInfo = (
+  expression: string
+):
+  | { hasParenthesis: false }
+  | {
+      hasParenthesis: true
+      startIndex: number
+      endIndex: number
+    } => {
+  let startIndex: number | undefined
+  let endIndex: number | undefined
   let hasParenthesis = false
   let openParenthesis = 0
   expression.split("").forEach((char, index) => {
     if (char === "(") {
       hasParenthesis = true
-      if (openParenthesis === 0) parenthesisOpenIndex = index
+      if (openParenthesis === 0) startIndex = index
       openParenthesis++
     } else if (char === ")") {
-      if (openParenthesis === 1) parenthesisCloseIndex = index
+      if (openParenthesis === 1) endIndex = index
       openParenthesis--
     }
   })
-  console.log(
-    expression,
-    hasParenthesis,
-    parenthesisOpenIndex,
-    parenthesisCloseIndex
-  )
   if (hasParenthesis) {
-    const beforeParenthesisExp = expression.substring(0, parenthesisOpenIndex)
-    const charBeforeParenthesis = expression.substring(
-      parenthesisOpenIndex - 1,
-      parenthesisOpenIndex
-    )
-    const parenthesisExp = expression.substring(
-      parenthesisOpenIndex + 1,
-      parenthesisCloseIndex
-    )
-    const afterParenthesisExp = expression.substring(
-      parenthesisCloseIndex + 1,
-      expression.length
-    )
-
-    const parenthesisExpResult = evaluateParenthesis(parenthesisExp)
-    const parenthesisExpResultAsExp =
-      parenthesisExpResult === true ? "TRUE" : "FALSE"
-
-    let newExpression
-    if (charBeforeParenthesis === "!") {
-      newExpression =
-        beforeParenthesisExp.substring(0, beforeParenthesisExp.length - 1) +
-        "NOT " +
-        parenthesisExpResultAsExp +
-        afterParenthesisExp
-    } else {
-      newExpression =
-        beforeParenthesisExp + parenthesisExpResultAsExp + afterParenthesisExp
+    return {
+      hasParenthesis,
+      startIndex,
+      endIndex,
     }
-    return evaluateParenthesis(newExpression)
-  } else {
-    return evaluateOROperator(expression)
+  }
+  return {
+    hasParenthesis,
   }
 }
 
 export const evaluateExpression = (expression: string): boolean => {
-  if (expression === "TRUE") return true
-  if (expression === "FALSE") return false
-  if (expression === "NOT TRUE") return false
-  if (expression === "NOT FALSE") return true
+  const outermostParenthesisInfo = getOutermostParenthesisInfo(expression)
 
-  const result = evaluateParenthesis(expression)
-  return result
+  if (!outermostParenthesisInfo.hasParenthesis)
+    return evaluateOROperator(expression)
+
+  const beforeParenthesisExp = expression.substring(
+    0,
+    outermostParenthesisInfo.startIndex
+  )
+  const charBeforeParenthesisExp = expression.substring(
+    outermostParenthesisInfo.startIndex - 1,
+    outermostParenthesisInfo.startIndex
+  )
+  const parenthesisExp = expression.substring(
+    outermostParenthesisInfo.startIndex + 1,
+    outermostParenthesisInfo.endIndex
+  )
+  const afterParenthesisExp = expression.substring(
+    outermostParenthesisInfo.endIndex + 1,
+    expression.length
+  )
+
+  const parenthesisExpResult = evaluateExpression(parenthesisExp)
+  const parenthesisExpResultAsExp =
+    parenthesisExpResult === true ? "TRUE" : "FALSE"
+
+  let newExpression
+  if (charBeforeParenthesisExp === "!") {
+    newExpression =
+      beforeParenthesisExp.substring(0, beforeParenthesisExp.length - 1) +
+      "NOT " +
+      parenthesisExpResultAsExp +
+      afterParenthesisExp
+  } else {
+    newExpression =
+      beforeParenthesisExp + parenthesisExpResultAsExp + afterParenthesisExp
+  }
+  return evaluateExpression(newExpression)
 }
