@@ -64,4 +64,12 @@ describe("boolean calculator", () => {
       expect(evaluateExpression("TRUE OR FALSE AND NOT FALSE")).toBeTruthy()
     })
   })
+  describe("should evaluate parenthesis", () => {
+    it("should evaluate (TRUE OR TRUE OR TRUE) AND FALSE to false", () => {
+      expect(evaluateExpression("(TRUE OR TRUE OR TRUE) AND FALSE")).toBeFalsy()
+    })
+    it("should evaluate NOT (TRUE AND TRUE) to false", () => {
+      expect(evaluateExpression("NOT (TRUE AND TRUE)")).toBeFalsy()
+    })
+  })
 })
