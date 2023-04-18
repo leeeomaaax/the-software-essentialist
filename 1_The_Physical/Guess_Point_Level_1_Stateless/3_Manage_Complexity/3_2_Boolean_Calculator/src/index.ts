@@ -42,29 +42,32 @@ const evaluateParenthesis = (expression: string): boolean => {
       openParenthesis++
     } else if (char === ")") {
       if (openParenthesis === 1) parenthesisCloseIndex = index
-      openParenthesis++
+      openParenthesis--
     }
   })
-  // console.log(
-  //   expression,
-  //   hasParenthesis,
-  //   parenthesisOpenIndex,
-  //   parenthesisCloseIndex
-  // )
+  console.log(
+    expression,
+    hasParenthesis,
+    parenthesisOpenIndex,
+    parenthesisCloseIndex
+  )
   if (hasParenthesis) {
     const beforeParenthesisExp = expression.substring(0, parenthesisOpenIndex)
     const parenthesisExp = expression.substring(
       parenthesisOpenIndex + 1,
       parenthesisCloseIndex
     )
-    const parenthesisExpResult = evaluateParenthesis(parenthesisExp)
-    const parenthesisExpResultAsExp =
-      parenthesisExpResult === true ? "TRUE" : "FALSE"
-
     const afterParenthesisExp = expression.substring(
       parenthesisCloseIndex + 1,
       expression.length
     )
+
+    const parenthesisExpResult = evaluateParenthesis(parenthesisExp)
+    console.log(parenthesisExp)
+    // const parenthesisExpResult = true
+    const parenthesisExpResultAsExp =
+      parenthesisExpResult === true ? "TRUE" : "FALSE"
+
     const newExpression =
       beforeParenthesisExp + parenthesisExpResultAsExp + afterParenthesisExp
     return evaluateParenthesis(newExpression)
