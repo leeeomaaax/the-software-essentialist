@@ -53,6 +53,10 @@ const evaluateParenthesis = (expression: string): boolean => {
   )
   if (hasParenthesis) {
     const beforeParenthesisExp = expression.substring(0, parenthesisOpenIndex)
+    const charBeforeParenthesis = expression.substring(
+      parenthesisOpenIndex - 1,
+      parenthesisOpenIndex
+    )
     const parenthesisExp = expression.substring(
       parenthesisOpenIndex + 1,
       parenthesisCloseIndex
@@ -63,13 +67,20 @@ const evaluateParenthesis = (expression: string): boolean => {
     )
 
     const parenthesisExpResult = evaluateParenthesis(parenthesisExp)
-    console.log(parenthesisExp)
-    // const parenthesisExpResult = true
     const parenthesisExpResultAsExp =
       parenthesisExpResult === true ? "TRUE" : "FALSE"
 
-    const newExpression =
-      beforeParenthesisExp + parenthesisExpResultAsExp + afterParenthesisExp
+    let newExpression
+    if (charBeforeParenthesis === "!") {
+      newExpression =
+        beforeParenthesisExp.substring(0, beforeParenthesisExp.length - 1) +
+        "NOT " +
+        parenthesisExpResultAsExp +
+        afterParenthesisExp
+    } else {
+      newExpression =
+        beforeParenthesisExp + parenthesisExpResultAsExp + afterParenthesisExp
+    }
     return evaluateParenthesis(newExpression)
   } else {
     return evaluateOROperator(expression)
