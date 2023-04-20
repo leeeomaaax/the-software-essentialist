@@ -1,4 +1,4 @@
-const evaluateExpressionValue = (expressionValue: string): boolean => {
+const evaluateExpressionToken = (expressionValue: string): boolean => {
   if (expressionValue === "TRUE") return true
   if (expressionValue === "FALSE") return false
   if (expressionValue === "NOT TRUE") return false
@@ -11,20 +11,18 @@ const evaluateANDOperator = (expression: string): boolean => {
   const expressionValues = expression.split(" AND ")
 
   const result = expressionValues.reduce((prevValue, currentValue) => {
-    if (currentValue.indexOf(" OR ") >= 0)
-      return prevValue && evaluateOROperator(currentValue)
-    return prevValue && evaluateExpressionValue(currentValue)
+    return prevValue && evaluateExpressionToken(currentValue)
   }, true)
   return result
 }
 
-const evaluateOROperator = (expression: string): boolean => {
+const evaluateANDandThenOROperators = (expression: string): boolean => {
   const expressionValues = expression.split(" OR ")
 
   const result = expressionValues.reduce((prevValue, currentValue) => {
     if (currentValue.indexOf(" AND ") >= 0)
       return prevValue || evaluateANDOperator(currentValue)
-    return prevValue || evaluateExpressionValue(currentValue)
+    return prevValue || evaluateExpressionToken(currentValue)
   }, false)
   return result
 }
@@ -68,7 +66,7 @@ export const evaluateExpression = (expression: string): boolean => {
   const outermostParenthesisInfo = getOutermostParenthesisInfo(expression)
 
   if (!outermostParenthesisInfo.hasParenthesis)
-    return evaluateOROperator(expression)
+    return evaluateANDandThenOROperators(expression)
 
   const beforeParenthesisExp = expression.substring(
     0,
