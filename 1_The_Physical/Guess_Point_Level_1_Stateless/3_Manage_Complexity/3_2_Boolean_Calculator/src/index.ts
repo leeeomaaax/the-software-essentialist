@@ -91,16 +91,7 @@ export const evaluateExpression = (expression: string): boolean => {
   const parenthesisExpResultAsExp =
     parenthesisExpResult === true ? "TRUE" : "FALSE"
 
-  let newExpression
-  if (charBeforeParenthesisExp === "!") {
-    newExpression =
-      beforeParenthesisExp.substring(0, beforeParenthesisExp.length - 1) +
-      "NOT " +
-      parenthesisExpResultAsExp +
-      afterParenthesisExp
-  } else {
-    newExpression =
-      beforeParenthesisExp + parenthesisExpResultAsExp + afterParenthesisExp
-  }
-  return evaluateExpression(newExpression)
+  return evaluateExpression(
+    beforeParenthesisExp + parenthesisExpResultAsExp + afterParenthesisExp
+  )
 }
