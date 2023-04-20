@@ -74,10 +74,6 @@ export const evaluateExpression = (expression: string): boolean => {
     0,
     outermostParenthesisInfo.startIndex
   )
-  const charBeforeParenthesisExp = expression.substring(
-    outermostParenthesisInfo.startIndex - 1,
-    outermostParenthesisInfo.startIndex
-  )
   const parenthesisExp = expression.substring(
     outermostParenthesisInfo.startIndex + 1,
     outermostParenthesisInfo.endIndex
