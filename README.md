@@ -1,12 +1,13 @@
 # The Software Essentialist (Course Projects Repo)
 
-> The official course repo for [The Software Essentialist](https://essentialist.dev/the-software-essentialist) course students.
+> The official course repo for [The Software Essentialist](https://essentialist.dev/) course students.
 
 ## What is this
 
 This is the repo that we'll use to work on assignments throughout the program.
 
 ## How to get started?
+
 - Install Git
 - Install Node v16 or higher on your machine
 - Git clone or fork this repo
@@ -20,7 +21,7 @@ This is the repo that we'll use to work on assignments throughout the program.
 
 ### 1. Watch the demonstration modules
 
-- You'll eventually find demonstration modules for each of the assignments. You can use these to compare designs. 
+- You'll eventually find demonstration modules for each of the assignments. You can use these to compare designs.
 
 ### 2. Get feedback on your work
 
@@ -42,9 +43,7 @@ Here's an example:
 ### 4. Design it twice (do it again)
 
 - The last thing you can do is something John Ousterhout recommends, that I highly agree with: _design it twice_. Do it again. You've likely learned things you'd do differently. Drill it again. Programming is very much a tactile & pattern-matching activity. You just need reference experiences.
-  
+
 ## How to deal with snags
 
 - If you get stuck or run into any issues, use the [#course-chat](https://discord.com/channels/997940575590416435/1074124524632674335) channel in Discord to discuss so we can refine things and make 'em smoother.
-
-
