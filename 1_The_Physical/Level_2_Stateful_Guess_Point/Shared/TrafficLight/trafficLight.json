@@ -1,0 +1,50 @@
+{
+  "id": "Traffic Light",
+  "initial": "OFF",
+  "states": {
+    "OFF": {
+      "on": {
+        "Turn on": {
+          "target": "ON"
+        }
+      }
+    },
+    "ON": {
+      "initial": "GREEN",
+      "states": {
+        "GREEN": {
+          "after": {
+            "30000": {
+              "target": "#Traffic Light.ON.YELLOW",
+              "actions": [],
+              "internal": false
+            }
+          }
+        },
+        "YELLOW": {
+          "after": {
+            "5000": {
+              "target": "#Traffic Light.ON.RED",
+              "actions": [],
+              "internal": false
+            }
+          }
+        },
+        "RED": {
+          "after": {
+            "25000": {
+              "target": "#Traffic Light.ON.GREEN",
+              "actions": [],
+              "internal": false
+            }
+          }
+        }
+      },
+      "on": {
+        "Turn off": {
+          "target": "OFF"
+        }
+      }
+    }
+  }
+}
