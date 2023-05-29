@@ -1,0 +1,76 @@
+{
+  "id": "BlogPost",
+  "initial": "DRAFT",
+  "states": {
+    "DRAFT": {
+      "on": {
+        "edit": {
+          "target": "DRAFT",
+          "description": "ContentWriter/Owner",
+          "internal": false
+        },
+        "submitForOwnerReview": {
+          "target": "PENDING_REVIEW",
+          "description": "ContentWriter"
+        },
+        "delete": {
+          "target": "DELETED",
+          "description": "ContentWriter"
+        }
+      }
+    },
+    "PENDING_REVIEW": {
+      "on": {
+        "delete": {
+          "target": "DELETED",
+          "description": "Owner"
+        },
+        "approve": {
+          "target": "UNPUBLISHED",
+          "description": "Owner"
+        },
+        "requestEdit": {
+          "target": "DRAFT",
+          "description": "Owner"
+        },
+        "edit": {
+          "target": "DRAFT",
+          "description": "ContentWriter/Owner"
+        }
+      }
+    },
+    "DELETED": {},
+    "UNPUBLISHED": {
+      "on": {
+        "scheduleForPublish": {
+          "target": "SCHEDULED",
+          "description": "Onwer"
+        },
+        "publish": {
+          "target": "PUBLISHED",
+          "description": "Owner"
+        }
+      }
+    },
+    "SCHEDULED": {
+      "on": {
+        "onPublishDate": {
+          "target": "PUBLISHED",
+          "description": "System"
+        },
+        "unschedule": {
+          "target": "UNPUBLISHED",
+          "description": "Owner"
+        }
+      }
+    },
+    "PUBLISHED": {
+      "on": {
+        "unpublish": {
+          "target": "UNPUBLISHED",
+          "description": "Owner"
+        }
+      }
+    }
+  }
+}
