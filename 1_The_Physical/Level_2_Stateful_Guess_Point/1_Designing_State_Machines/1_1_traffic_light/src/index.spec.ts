@@ -21,4 +21,12 @@ describe("traffic light", () => {
 
     expect(trafficLight.isTurnedOn).toBe(false)
   })
+  it("should turn on in green", () => {
+    const trafficLight = new TrafficLight()
+
+    trafficLight.turnOn()
+
+    expect(trafficLight.isTurnedOn).toBe(true)
+    expect(trafficLight.currentColor).toBe("green")
+  })
 })
