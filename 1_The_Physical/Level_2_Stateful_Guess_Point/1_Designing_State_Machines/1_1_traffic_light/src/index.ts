@@ -32,6 +32,19 @@ export class TrafficLight {
   public switchToRed(): void {
     if (this.isOn === false)
       throw new Error("off traffic light cannot be switched to red")
+    if (this.colorState !== "yellow")
+      throw new Error(
+        "traffic light has to be in yellow before switching to red"
+      )
     this.colorState = "red"
+  }
+  public switchToGreen(): void {
+    if (this.isOn === false)
+      throw new Error("off traffic light cannot be switched to green")
+    if (this.colorState !== "red")
+      throw new Error(
+        "traffic light has to be in red before switching to green"
+      )
+    this.colorState = "green"
   }
 }

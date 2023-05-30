@@ -46,10 +46,11 @@ describe("traffic light", () => {
       "off traffic light cannot be switched to yellow"
     )
   })
-  it("should fail to switch to yellow if in red", () => {
+  it("should fail to switch to yellow if not in green", () => {
     const trafficLight = new TrafficLight()
 
     trafficLight.turnOn()
+    trafficLight.switchToYellow()
     trafficLight.switchToRed()
     expect(() => trafficLight.switchToYellow()).toThrowError(
       "traffic light has to be in green before switching to yellow"
@@ -64,5 +65,49 @@ describe("traffic light", () => {
 
     expect(trafficLight.isTurnedOn).toBe(true)
     expect(trafficLight.currentColor).toBe("red")
+  })
+  it("should fail to switch to red if off", () => {
+    const trafficLight = new TrafficLight()
+
+    trafficLight.turnOff()
+    expect(() => trafficLight.switchToRed()).toThrowError(
+      "off traffic light cannot be switched to red"
+    )
+  })
+  it("should fail to switch to red if not in yellow", () => {
+    const trafficLight = new TrafficLight()
+
+    trafficLight.turnOn()
+    expect(() => trafficLight.switchToRed()).toThrowError(
+      "traffic light has to be in yellow before switching to red"
+    )
+  })
+  it("should switch to green after red", () => {
+    const trafficLight = new TrafficLight()
+
+    trafficLight.turnOn()
+    trafficLight.switchToYellow()
+    trafficLight.switchToRed()
+    trafficLight.switchToGreen()
+
+    expect(trafficLight.isTurnedOn).toBe(true)
+    expect(trafficLight.currentColor).toBe("green")
+  })
+  it("should fail to switch to green if off", () => {
+    const trafficLight = new TrafficLight()
+
+    trafficLight.turnOff()
+    expect(() => trafficLight.switchToGreen()).toThrowError(
+      "off traffic light cannot be switched to green"
+    )
+  })
+  it("should fail to switch to green if not in red", () => {
+    const trafficLight = new TrafficLight()
+
+    trafficLight.turnOn()
+    trafficLight.switchToYellow()
+    expect(() => trafficLight.switchToGreen()).toThrowError(
+      "traffic light has to be in red before switching to green"
+    )
   })
 })
