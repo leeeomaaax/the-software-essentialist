@@ -16,6 +16,7 @@ export class TrafficLight {
 
   public turnOn(): void {
     this.isOn = true
+    this.colorState = "green"
   }
   public turnOff(): void {
     this.isOn = false
