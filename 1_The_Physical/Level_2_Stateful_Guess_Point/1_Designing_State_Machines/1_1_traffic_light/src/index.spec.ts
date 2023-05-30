@@ -6,4 +6,11 @@ describe("traffic light", () => {
 
     expect(trafficLight.isTurnedOn).toBe(false)
   })
+  it("should turn on after initialization", () => {
+    const trafficLight = new TrafficLight()
+
+    trafficLight.turnOn()
+
+    expect(trafficLight.isTurnedOn).toBe(true)
+  })
 })

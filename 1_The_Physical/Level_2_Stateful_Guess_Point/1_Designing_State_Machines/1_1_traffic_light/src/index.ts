@@ -8,4 +8,8 @@ export class TrafficLight {
   constructor() {
     this.isOn = false
   }
+
+  public turnOn(): void {
+    this.isOn = true
+  }
 }
