@@ -20,4 +20,7 @@ export class TrafficLight {
   public turnOff(): void {
     this.isOn = false
   }
+  public switchToYellow(): void {
+    this.colorState = "yellow"
+  }
 }
