@@ -46,4 +46,23 @@ describe("traffic light", () => {
       "off traffic light cannot be switched to yellow"
     )
   })
+  it("should fail to switch to yellow if in red", () => {
+    const trafficLight = new TrafficLight()
+
+    trafficLight.turnOn()
+    trafficLight.switchToRed()
+    expect(() => trafficLight.switchToYellow()).toThrowError(
+      "traffic light has to be in green before switching to yellow"
+    )
+  })
+  it("should switch to red after yellow", () => {
+    const trafficLight = new TrafficLight()
+
+    trafficLight.turnOn()
+    trafficLight.switchToYellow()
+    trafficLight.switchToRed()
+
+    expect(trafficLight.isTurnedOn).toBe(true)
+    expect(trafficLight.currentColor).toBe("red")
+  })
 })
