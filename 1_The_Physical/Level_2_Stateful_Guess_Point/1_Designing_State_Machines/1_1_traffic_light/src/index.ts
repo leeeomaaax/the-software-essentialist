@@ -12,4 +12,7 @@ export class TrafficLight {
   public turnOn(): void {
     this.isOn = true
   }
+  public turnOff(): void {
+    this.isOn = false
+  }
 }
