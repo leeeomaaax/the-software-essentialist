@@ -38,4 +38,12 @@ describe("traffic light", () => {
     expect(trafficLight.isTurnedOn).toBe(true)
     expect(trafficLight.currentColor).toBe("yellow")
   })
+  it("should fail to switch to yellow if off", () => {
+    const trafficLight = new TrafficLight()
+
+    trafficLight.turnOff()
+    expect(() => trafficLight.switchToYellow()).toThrowError(
+      "off traffic light cannot be switched to yellow"
+    )
+  })
 })

@@ -21,6 +21,8 @@ export class TrafficLight {
     this.isOn = false
   }
   public switchToYellow(): void {
+    if (this.isOn === false)
+      throw new Error("off traffic light cannot be switched to yellow")
     this.colorState = "yellow"
   }
 }
