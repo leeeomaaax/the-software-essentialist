@@ -1,5 +1,23 @@
 import { TrafficLight } from "./"
 
+class TrafficLightBuilder {
+  trafficLight: TrafficLight
+  constructor() {
+    this.trafficLight = new TrafficLight()
+  }
+  getTurnedOnInYellow() {
+    this.trafficLight.turnOn()
+    this.trafficLight.switchToYellow()
+    return this.trafficLight
+  }
+  getTurnedOnInRed() {
+    this.trafficLight.turnOn()
+    this.trafficLight.switchToYellow()
+    this.trafficLight.switchToRed()
+    return this.trafficLight
+  }
+}
+
 describe("traffic light", () => {
   it("should be initialized as off", () => {
     const trafficLight = new TrafficLight()
@@ -30,10 +48,8 @@ describe("traffic light", () => {
     expect(trafficLight.currentColor).toBe("green")
   })
   it("should turn on in green after being turned off in yellow", () => {
-    const trafficLight = new TrafficLight()
+    const trafficLight = new TrafficLightBuilder().getTurnedOnInYellow()
 
-    trafficLight.turnOn()
-    trafficLight.switchToYellow()
     trafficLight.turnOff()
     trafficLight.turnOn()
 
@@ -58,20 +74,15 @@ describe("traffic light", () => {
     )
   })
   it("should fail to switch to yellow if not in green", () => {
-    const trafficLight = new TrafficLight()
+    const trafficLight = new TrafficLightBuilder().getTurnedOnInRed()
 
-    trafficLight.turnOn()
-    trafficLight.switchToYellow()
-    trafficLight.switchToRed()
     expect(() => trafficLight.switchToYellow()).toThrowError(
       "traffic light has to be in green before switching to yellow"
     )
   })
   it("should switch to red after yellow", () => {
-    const trafficLight = new TrafficLight()
+    const trafficLight = new TrafficLightBuilder().getTurnedOnInYellow()
 
-    trafficLight.turnOn()
-    trafficLight.switchToYellow()
     trafficLight.switchToRed()
 
     expect(trafficLight.isTurnedOn).toBe(true)
@@ -87,18 +98,15 @@ describe("traffic light", () => {
   })
   it("should fail to switch to red if not in yellow", () => {
     const trafficLight = new TrafficLight()
-
     trafficLight.turnOn()
+
     expect(() => trafficLight.switchToRed()).toThrowError(
       "traffic light has to be in yellow before switching to red"
     )
   })
   it("should switch to green after red", () => {
-    const trafficLight = new TrafficLight()
+    const trafficLight = new TrafficLightBuilder().getTurnedOnInRed()
 
-    trafficLight.turnOn()
-    trafficLight.switchToYellow()
-    trafficLight.switchToRed()
     trafficLight.switchToGreen()
 
     expect(trafficLight.isTurnedOn).toBe(true)
@@ -113,10 +121,8 @@ describe("traffic light", () => {
     )
   })
   it("should fail to switch to green if not in red", () => {
-    const trafficLight = new TrafficLight()
+    const trafficLight = new TrafficLightBuilder().getTurnedOnInYellow()
 
-    trafficLight.turnOn()
-    trafficLight.switchToYellow()
     expect(() => trafficLight.switchToGreen()).toThrowError(
       "traffic light has to be in red before switching to green"
     )
